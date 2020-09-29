@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data = [
+        'name'  => '阿白',
+        'phone' => '0900000000',
+        'mali'  => 'cizyhane@gmail.com'
+    ];
+    return view('frontend/home',$data);
 });
