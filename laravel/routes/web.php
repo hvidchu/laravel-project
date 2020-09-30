@@ -19,5 +19,5 @@ Route::get('/', function () {
         'phone' => '0900000000',
         'mali'  => 'cizyhane@gmail.com'
     ];
-    return view('frontend/home',$data);
-});
+    return view('frontend/index',$data);
+}) -> name('home');
