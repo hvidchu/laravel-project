@@ -1,6 +1,7 @@
 @extends('frontend/master/master')
 @section('title','about')
 @section('content')
+@section('nav-about','active')
 
 <section class="page-section about-heading">
   <div class="container">

@@ -1,6 +1,7 @@
 @extends('frontend/master/master')
 @section('title','about')
 @section('content')
+@section('nav-store','active')
 
 <section class="page-section cta">
   <div class="container">
