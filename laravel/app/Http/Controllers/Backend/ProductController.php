@@ -15,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('id')->get();
+        return view('backend/product/index',compact('products'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend/product/create');
     }
 
     /**
@@ -36,7 +37,28 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!file_exists('uploads/product')){
+            mkdir('uploads/product',0755,true);
+        }
+
+        $product = new Product;
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().'/uploads/product/';
+
+            $file->move($path,$fileName);
+        }else{
+            $fileName = 'default.jpg';
+        }
+
+        $product->title = $request->input('title');
+        $product->subtitle = $request->input('subtitle');
+        $product->image = $fileName;
+        $product->description = $request->input('description');
+
+        $product->save();
+        return redirect()->route('admin.product.index');
     }
 
     // /**

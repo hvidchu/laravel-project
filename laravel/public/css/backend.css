@@ -1,0 +1,14 @@
+body{
+    background-color:#F0F1F4;
+}
+.btn-primary{
+    background-color: #1E5BB6;
+    border-color: #1E5BB6;
+}
+.login-box{
+    background-color: #fff;
+    padding: 30px;
+    margin-top: 100px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
