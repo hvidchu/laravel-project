@@ -80,7 +80,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find('id');
+        return view('backend/product/edit',compact('product'));
     }
 
     /**
@@ -92,7 +93,32 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find('id');
+
+        if(!file_exists('uploads/product')){
+            mkdir('uploads/product',0755,true);
+        }
+
+        if($request->hasFile('image')){
+
+            if($product->image!='default.jpg'){
+                @unlink('uploads/product/'.$product->image);
+            }
+
+            $file = $request->file('image');
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            $path = public_path().'/uploads/product/';
+
+            $file->move($path,$fileName);
+        }
+
+        $product->image = $fileName;
+        $product->title = $request->input('title');
+        $product->subtitle = $request->input('subtitle');
+        $product->description = $request->input('description');
+
+        $product->save();
+        return redirect()->route('admin/product/index');
     }
 
     /**
@@ -103,6 +129,11 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find('id');
+        if($product->image!='default.jpg'){
+            @unlink('uploads/product/'.$product->image);
+        }
+        $product->delete();
+        return redirect()->route('admin/product/index');
     }
 }
